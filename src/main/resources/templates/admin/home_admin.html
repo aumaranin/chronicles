@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head_admin">
+        <meta charset="UTF-8">
+        <title>Хроники восхождения альпийского клуба</title>
+        <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/4.1/examples/blog/blog.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <header class="blog-header py-3" th:fragment="header_admin">
+                <div class="row flex-nowrap justify-content-between align-items-center">
+                    <div class="col-4 pt-1">
+                    </div>
+                    <div class="col-4 text-center">
+                        <a class="blog-header-logo text-dark" href="/admin/">Хроники восхождений альпинистского клуба</a>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-1">
+                        Здравствуйте,<br> Гость
+                    </div>
+                    <div class="col-1 d-flex justify-content-end align-items-center">
+
+                        <form th:action="@{/logout}" method="post">
+                            <input class="btn btn-sm btn-outline-secondary" type="submit" value="Выход"/>
+                        </form>
+
+                        <!--<a class="btn btn-sm btn-outline-secondary" th:action="">Авторизация</a>-->
+                    </div>
+                </div>
+            </header>
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="menu-admin">
+
+                <!--<a class="navbar-brand" href="#">Navbar</a>-->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Альпинисты
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Отобразить всех альпинистов</a>
+                                <a class="dropdown-item" href="#">Информация об альпинисте</a>
+                                <a class="dropdown-item" href="#">Отобразить информацию о восхождениях альпиниста</a>
+                                <a class="dropdown-item" href="#">Список альпинистов, совершивших восхождения в промежутке дат</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Добавить альпиниста к восхождению</a>
+                                <a class="dropdown-item" href="/admin/add_person">Добавить альпиниста</a>
+                                <a class="dropdown-item" href="#">Изменить данные альпиниста</a>
+                                <a class="dropdown-item" href="#"></a>
+
+                            </div>
+                        </li>
+                        <li class="nav-item active dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Горы
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Отобразить все горы</a>
+                                <a class="dropdown-item" href="#">Отобразить горы, на которые совершались восхождения членами клуба</a>
+                                <a class="dropdown-item" href="#">Подсчитать, сколько альпинистов клуба было на каждой горе</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Добавить вершину</a>
+                                <a class="dropdown-item" href="#">Изменить вершину</a>
+                            </div>
+                        </li>
+                        <li class="nav-item active dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Восхождения (группы)
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Отобразить историю восхождений</a>
+                                <a class="dropdown-item" href="#">Отобразить ожидаемые восхождения</a>
+                                <a class="dropdown-item" href="#">Отобразить восхождения в промежутке дат</a>
+                                <a class="dropdown-item" href="#">Количество восхождений по каждой горе</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Назначить восхождение</a>
+                                <a class="dropdown-item" href="#">Завершить восхождение</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/admin/about">О системе</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </body>
+</html>
