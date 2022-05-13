@@ -6,7 +6,7 @@
             <header th:replace="admin/home_admin :: header_admin"></header>
             <nav th:replace="admin/home_admin :: menu-admin"></nav>
 
-            <br><p style="font-weight: bold;">Добавление пользователя</p>
+            <br><h2 style="font-weight:bold;">Добавление пользователя</h2><br>
             <form th:method="POST" th:action="@{/admin/}" th:object="${person}">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Фамилия</label>

@@ -130,6 +130,28 @@ public class Person
         this.enabled = enabled;
     }
 
+    public String getRoleRus()
+    {
+        String res = null;
+        if (role.equals("ROLE_ADMIN"))
+            res = "Администратор";
+        if (role.equals("ROLE_LEADER"))
+            res = "Лидер";
+        if (role.equals("ROLE_CLIMBER"))
+            res = "Альпинист";
+        return res;
+    }
+
+    public String getStatus()
+    {
+        String res = null;
+        if (enabled == true)
+            res = "Активен";
+        else
+            res = "Заблокирован";
+        return res;
+    }
+
     public String toString()
     {
         String res =  "Имя: " + first_name + "\n"

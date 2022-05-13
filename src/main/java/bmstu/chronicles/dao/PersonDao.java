@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import bmstu.chronicles.models.Person;
 
+//Класс, содержащий функции для работы с таблицей "person"
 @Component
 public class PersonDao
 {
@@ -14,6 +15,7 @@ public class PersonDao
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "goldland";
 
+    //Создание и настройка соединения с базой данных
     private static Connection connection;
     static {
         try {
@@ -28,7 +30,8 @@ public class PersonDao
             throwables.printStackTrace();
         }
     }
-    /*
+
+    //Метод для поиска пользователя в базе данных по id
     public List<Person> index() {
         List<Person> people = new ArrayList<>();
 
@@ -64,8 +67,8 @@ public class PersonDao
         Person person = null;
         try
         {
-            PreparedStatement prst = connection.prepareStatement("SELECT * FROM person WHERE id=?");
-            prst.setInt(1,id);
+            PreparedStatement prst = connection.prepareStatement("SELECT * FROM person WHERE person_id=?");
+            prst.setInt(1, id);
             ResultSet resultSet = prst.executeQuery();
             resultSet.next();
             person = new Person();
@@ -85,7 +88,35 @@ public class PersonDao
         }
         return person;
     }
-*/
+
+    //Метод для поиска пользователя в базе данных по логину
+    public Person show(String log) {
+        Person person = null;
+        try
+        {
+            PreparedStatement prst = connection.prepareStatement("SELECT * FROM person WHERE login=?");
+            prst.setString(1, log);
+            ResultSet resultSet = prst.executeQuery();
+            resultSet.next();
+            person = new Person();
+            person.setPerson_id(resultSet.getInt("person_id"));
+            person.setFirst_name(resultSet.getString("first_name"));
+            person.setSecond_name(resultSet.getString("second_name"));
+            person.setLast_name(resultSet.getString("last_name"));
+            person.setDate_of_birth(resultSet.getString("date_of_birth"));
+            person.setPassword(resultSet.getString("password"));
+            person.setRole(resultSet.getString("role"));
+            person.setLogin(resultSet.getString("login"));
+            person.setEnabled(resultSet.getBoolean("enabled"));
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return person;
+    }
+
+    //Метод для записи пользователя в базу данных
     public void save(Person person) {
         try
         {

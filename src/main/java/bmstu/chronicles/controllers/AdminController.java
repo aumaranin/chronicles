@@ -7,12 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
+//Аннотация контроллер дает классу дополниительные возможности в соответствии с шаблоном
+//проектирования MVC (Model-View-Controller). Подобный класс расширяет свои возможности
+//и может обрабатывать HTTP-запросы.
 @Controller
+//Аннотация RequestMapping перед классом-контроллером позволяет перенаправлять все
+//запросы, начинающиеся с строки, передаваемой в качестве аргумента, в этот контроллер
 @RequestMapping("/admin")
 public class AdminController
 {
-
     private final PersonDao personDao;
 
     @Autowired
@@ -48,9 +54,7 @@ public class AdminController
          */
         person.setEnabled(true);
         personDao.save(person);
-        System.out.println("Добавлен пользователь:");
-        System.out.println(person);
-        return "redirect:/admin/";
+        return "redirect:/admin/show_all";
     }
 
     @GetMapping("/about")
@@ -59,10 +63,51 @@ public class AdminController
         return "admin/about";
     }
 
+    @GetMapping("/show_all")
+    public String show_all(Model model)
+    {
+        List<Person> list = personDao.index();
+        model.addAttribute("persons", list);
+        return "admin/show_all";
+    }
+
+    @GetMapping("/person_info")
+    public String person_info1(Model model)
+    {
+        List<Person> list = personDao.index();
+        model.addAttribute("persons", list);
+        return "admin/info_person1";
+    }
+
+    @PostMapping("/person")
+    public String person_info2(@RequestParam("id") int id, Model model)
+    {
+        Person person = personDao.show(id);
+        model.addAttribute("person", person);
+        return "admin/info_person2";
+    }
+
+    @PostMapping("/person_change")
+    public String person_change(@RequestParam("id") int id, Model model, @ModelAttribute("person") Person person)
+    {
+        Person person_old = personDao.show(id);
+        model.addAttribute("person_old", person_old);
+        //System.out.println(person);
+        //return "admin/info_person1";
+        //return "redirect:admin/info_person1";
+        return "/admin/person_change";
+    }
+
     @GetMapping("/test_page")
     public String test_page(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model)
     {
         model.addAttribute("name", name);
+        List<Person> list = new ArrayList<Person>();
+        list = personDao.index();
+        for (Person person : list)
+        {
+            System.out.println(person);
+        }
         //return "admin/test_page";
         return "admin/test_page";
     }
