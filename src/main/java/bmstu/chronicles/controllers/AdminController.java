@@ -54,7 +54,7 @@ public class AdminController
          */
         person.setEnabled(true);
         personDao.save(person);
-        return "redirect:/admin/show_all";
+        return "redirect:/admin/persons";
     }
 
     @GetMapping("/about")
@@ -63,12 +63,18 @@ public class AdminController
         return "admin/about";
     }
 
-    @GetMapping("/show_all")
-    public String show_all(Model model)
+    @GetMapping("/persons")
+    public String show_all(@RequestParam(value = "from", required = false, defaultValue = "") String from, @RequestParam(value = "to", required = false, defaultValue = "") String to, Model model)
     {
-        List<Person> list = personDao.index();
+        List<Person> list;
+        if (from.equals("") || to.equals(""))
+            list = personDao.index();
+        else
+            list = personDao.index(from, to);
         model.addAttribute("persons", list);
-        return "admin/show_all";
+        model.addAttribute("from", from);
+        model.addAttribute("to", to);
+        return "admin/persons";
     }
 
     @GetMapping("/person_info")

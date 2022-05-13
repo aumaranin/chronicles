@@ -63,6 +63,38 @@ public class PersonDao
         return people;
     }
 
+    public List<Person> index(String from, String to)
+    {
+        List<Person> people = new ArrayList<>();
+        try
+        {
+            PreparedStatement prst = connection.prepareStatement("SELECT * FROM person");
+
+            /*
+                //Дописать запрос для поиска людей, совершавших восхождение!
+             */
+            ResultSet resultSet = prst.executeQuery();
+            while(resultSet.next())
+            {
+                Person person = new Person();
+
+                person.setPerson_id(resultSet.getInt("person_id"));
+                person.setFirst_name(resultSet.getString("first_name"));
+                person.setSecond_name(resultSet.getString("second_name"));
+                person.setLast_name(resultSet.getString("last_name"));
+                person.setDate_of_birth(resultSet.getString("date_of_birth"));
+                person.setPassword(resultSet.getString("password"));
+                person.setRole(resultSet.getString("role"));
+                person.setLogin(resultSet.getString("login"));
+                person.setEnabled(resultSet.getBoolean("enabled"));
+                people.add(person);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return people;
+    }
+
     public Person show(int id) {
         Person person = null;
         try
