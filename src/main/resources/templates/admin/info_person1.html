@@ -6,11 +6,10 @@
         <header th:replace="admin/home_admin :: header_admin"></header>
         <nav th:replace="admin/home_admin :: menu-admin"></nav>
         <div class="container">
-                <br><h2 style="font-weight:bold;">Информация об альпинисте</h2><br>
+                <br><h2 style="font-weight:bold;">Выбор альпиниста</h2><br>
                 <form th:action="@{/admin/person}" method="post">
                         <select class="form-control" name="id">
                                 <th:block th:each="person : ${persons}">
-
                                         <option th:text="${person.last_name + ' '  + person.first_name + ' '
                                         + person.second_name + '  (' + person.date_of_birth + ')'}" th:value="${person.person_id}"></option>
                                 </th:block>

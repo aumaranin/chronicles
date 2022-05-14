@@ -34,7 +34,7 @@ public class AdminController
         return "admin/home_admin";
     }
 
-    @GetMapping("/add_person")
+    @GetMapping("/person/new")
     public String add_person(@ModelAttribute("person") Person person)
     {
         return "admin/add_person";

@@ -6,7 +6,7 @@
             <header th:replace="admin/home_admin :: header_admin"></header>
             <nav th:replace="admin/home_admin :: menu-admin"></nav>
 
-            <br><h2 style="font-weight:bold;">Добавление пользователя</h2><br>
+            <br><h2 style="font-weight:bold;">Изменение информации о пользователе</h2><br>
             <form th:method="POST" th:action="@{/admin/}" th:object="${person}">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Фамилия</label>
@@ -44,7 +44,6 @@
                         <input type="text" class="form-control" placeholder="Пароль" th:field="*{password}">
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Роль</label>
                     <div class="col-sm-10">
@@ -55,7 +54,15 @@
                         </select>
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Статус</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" th:field="*{enabled}">
+                            <option th:value="true" th:text="Активен"></option>
+                            <option th:value="false" th:text="Заблокирован"></option>
+                        </select>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Добавить</button>
             </form>
 
