@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/home_admin :: head_admin"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="admin/home_admin :: header_admin"></header>
+        <nav th:replace="admin/home_admin :: menu-admin"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Выбор горной вершины</h2><br>
+                <form th:action="@{/admin/mountain/}" method="post">
+                        <select class="form-control" name="id">
+                                <th:block th:each="mountain : ${mountains_list}">
+                                        <option th:text="${mountain.name}" th:value="${mountain.id}"></option>
+                                </th:block>
+                        </select><br>
+                        <button type="submit" class="btn btn-primary">Отобразить информацию</button>
+                </form>
+        </div>
+</div>
+</body>
+</html>

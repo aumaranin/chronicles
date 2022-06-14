@@ -32,6 +32,10 @@
                                 <th scope="col">Отчество</th>
                                 <th scope="col">Дата рождения</th>
                                 <th scope="col">Роль</th>
+                                <th scope="col">Пол</th>
+                                <th scope="col">Спортивный разряд</th>
+                                <th scope="col">Телефон</th>
+                                <th scope="col">Телефон родственника</th>
                                 <th scope="col">Логин</th>
                                 <th scope="col">Пароль</th>
                                 <th scope="col">Статус</th>
@@ -46,6 +50,10 @@
                                                 <td th:text="${person.second_name}"></td>
                                                 <td th:text="${person.date_of_birth}"></td>
                                                 <td th:text="${person.getRoleRus()}"></td>
+                                                <td th:text="${person.getGender()}"></td>
+                                                <td th:text="${person.getRank()}"></td>
+                                                <td th:text="${person.getPhone()}"></td>
+                                                <td th:text="${person.getRelative_phone()}"></td>
                                                 <td th:text="${person.login}"></td>
                                                 <td th:text="${person.password}"></td>
                                                 <td th:text="${person.getStatus()}"></td>

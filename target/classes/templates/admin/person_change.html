@@ -5,49 +5,50 @@
         <div class="container mt-4">
             <header th:replace="admin/home_admin :: header_admin"></header>
             <nav th:replace="admin/home_admin :: menu-admin"></nav>
-
             <br><h2 style="font-weight:bold;">Изменение информации о пользователе</h2><br>
-            <form th:method="POST" th:action="@{/admin/}" th:object="${person}">
+            <form th:method="POST" th:action="@{/admin/person/changing/}" th:object="${person_old}">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Фамилия</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" th:field="*{last_name}" th:value="${person_old.last_name}">
+                        <input type="text" class="form-control" th:field="${person_old.last_name}" th:value="${person_old.last_name}">
                     </div>
                 </div>
+
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Имя</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Имя" th:field="*{first_name}">
+                        <input type="text" class="form-control" th:field="${person_old.first_name}" th:value="${person_old.first_name}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Отчество</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Отчетство" th:field="*{second_name}">
+                        <input type="text" class="form-control" th:field="${person_old.second_name}" th:value="${person_old.first_name}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Дата рождения</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="1990-01-01" th:field="*{date_of_birth}">
+                        <input type="text" class="form-control" th:field="${person_old.date_of_birth}" th:value="${person_old.second_name}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Логин</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Логин" th:field="*{login}">
+                        <input type="text" class="form-control" th:field="${person_old.login}" th:value="${person_old.second_name}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Пароль</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Пароль" th:field="*{password}">
+                        <input type="text" class="form-control" th:field="${person_old.password}" th:value="${person_old.second_name}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Роль</label>
                     <div class="col-sm-10">
-                        <select class="form-control" th:field="*{role}">
+                        <select class="form-control" th:field="${person_old.role}">
                             <option th:value="'ROLE_CLIMBER'" th:text="Альпинист"></option>
                             <option th:value="'ROLE_LEADER'" th:text="Лидер"></option>
                             <option th:value="'ROLE_ADMIN'" th:text="Администратор"></option>
@@ -57,15 +58,51 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Статус</label>
                     <div class="col-sm-10">
-                        <select class="form-control" th:field="*{enabled}">
+                        <select class="form-control" th:field="${person_old.enabled}">
                             <option th:value="true" th:text="Активен"></option>
                             <option th:value="false" th:text="Заблокирован"></option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Добавить</button>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Пол</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Пол" th:field="${person_old.gender}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Спортивный разряд</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Спортивный разряд" th:field="${person_old.rank}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Телефон</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Телефон" th:field="${person_old.phone}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Телефон родственника</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Телефон родственника" th:field="${person_old.relative_phone}">
+                    </div>
+                </div>
+
+                <input type="hidden" name="id" th:value="${person_old.person_id}">
+
+                <button type="submit" class="btn btn-primary">Изменить</button>
+
+
             </form>
 
+
+
+
+
+
+
+
         </div>
-</body>
+    </body>
 </html>

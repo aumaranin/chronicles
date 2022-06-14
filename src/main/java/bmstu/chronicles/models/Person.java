@@ -197,7 +197,12 @@ public class Person
     {
         String res =  "Имя: " + first_name + "\n"
                 + "Отчетсво: " + second_name + "\n" + "Фамилия: " + last_name + "\n"
-                + "Дата рождения: " + date_of_birth + "\n" + "Логин: " + login + "\n"
+                + "Дата рождения: " + date_of_birth + "\n"
+                + "Пол: " + gender + "\n"
+                + "Спортивный разряд: " + rank + "\n"
+                + "Телефон: " + phone + "\n"
+                + "Телефон родственника: " + relative_phone + "\n"
+                + "Логин: " + login + "\n"
                 + "Пароль: " + password + "\n" + "Роль: " + role + "\n" + "enabled: " + enabled;
         return res;
     }
