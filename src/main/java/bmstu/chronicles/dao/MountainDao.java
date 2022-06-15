@@ -1,7 +1,6 @@
 package bmstu.chronicles.dao;
 
 import bmstu.chronicles.models.Mountain;
-import bmstu.chronicles.models.Person;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;

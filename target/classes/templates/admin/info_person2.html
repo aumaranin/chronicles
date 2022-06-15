@@ -87,12 +87,12 @@
                     <button type="submit" class="btn btn-primary">Изменить информацию о пользователе</button>
                 </form><br>
 
-                <form th:method="POST" th:action="@{/admin/person/person_count_assention_on_mountains/}" th:object="${person}">
+                <form th:method="POST" th:action="@{/admin/person/person_count_ascension_on_mountains/}" th:object="${person}">
                     <input type="hidden" name="id" th:value="${person.person_id}">
                     <button type="submit" class="btn btn-primary">Подсчитать количество восхождений</button>
                 </form><br>
 
-                <form th:method="POST" th:action="@{/admin/person/person_count_assention_on_mountains/}" th:object="${person}">
+                <form th:method="POST" th:action="@{/admin/person/person_ascensions/}" th:object="${person}">
                     <input type="hidden" name="id" th:value="${person.person_id}">
                     <button type="submit" class="btn btn-primary">Отобразить все восхождения альпиниста</button>
                 </form>

@@ -21,12 +21,16 @@ public class AdminController
 {
     private final PersonDao personDao;
     private final MountainDao mountainDao;
+    private final AscensionDao ascensionDao;
+    private final SponsorDao sponsorDao;
     private final RqsDao rqsDao;
 
     @Autowired
-    public AdminController(PersonDao personDao, MountainDao mountainDao, RqsDao rqsDao) {
+    public AdminController(PersonDao personDao, MountainDao mountainDao, AscensionDao ascensionDao, SponsorDao sponsorDao, RqsDao rqsDao) {
         this.personDao = personDao;
         this.mountainDao = mountainDao;
+        this.ascensionDao = ascensionDao;
+        this.sponsorDao = sponsorDao;
         this.rqsDao = rqsDao;
     }
 
@@ -34,31 +38,7 @@ public class AdminController
     public String home_admin(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model)
     {
         model.addAttribute("name", name);
-        //return "admin/test_page";
         return "admin/home_admin";
-    }
-
-    @GetMapping("/person/new")
-    public String add_person(@ModelAttribute("person") Person person)
-    {
-        return "admin/add_person";
-    }
-
-    @PostMapping("person/creating")
-    public String create(@ModelAttribute("person") Person person) {
-        /*
-        person.setFirst_name("Громов");
-        person.setSecond_name("Василий");
-        person.setLast_name("Викторович");
-        person.setDate_of_birth("1960-02-01");
-        person.setLogin("log5");
-        person.setRole("ROLE_LEADER");
-        person.setPassword("pas5");
-        person.setEnabled(true);
-         */
-        person.setEnabled(true);
-        personDao.save(person);
-        return "redirect:/admin/persons";
     }
 
     @GetMapping("/about")
@@ -66,6 +46,19 @@ public class AdminController
     public String about()
     {
         return "admin/about";
+    }
+
+    @GetMapping("/person/new")
+    public String add_person(@ModelAttribute("person") Person person)
+    {
+        return "admin/persons/person_add";
+    }
+
+    @PostMapping("person/creating")
+    public String create(@ModelAttribute("person") Person person) {
+        person.setEnabled(true);
+        personDao.save(person);
+        return "redirect:/admin/persons/persons";
     }
 
     @GetMapping("/persons")
@@ -80,7 +73,7 @@ public class AdminController
         model.addAttribute("persons", list);
         model.addAttribute("from", from);
         model.addAttribute("to", to);
-        return "admin/persons";
+        return "admin/persons/persons";
     }
 
     @GetMapping("/person_info")
@@ -89,7 +82,7 @@ public class AdminController
     {
         List<Person> list = personDao.index();
         model.addAttribute("persons", list);
-        return "admin/info_person1";
+        return "admin/persons/person_info1";
     }
 
     @PostMapping("/person")
@@ -98,18 +91,15 @@ public class AdminController
     {
         Person person = personDao.show(id);
         model.addAttribute("person", person);
-        return "admin/info_person2";
+        return "admin/persons/person_info2";
     }
-
-
-
 
     @PostMapping("/person_change")
     public String person_change(@RequestParam("id") int id, Model model, @ModelAttribute("person") Person person)
     {
         Person person_old = personDao.show(id);
         model.addAttribute("person_old", person_old);
-        return "admin/person_change";
+        return "admin/persons/person_change";
     }
 
     @PostMapping("/person/changing")
@@ -119,20 +109,13 @@ public class AdminController
         System.out.println("открыта форма person_changing");
         System.out.println("получен атрибут id: " + Integer.toString(id));
         personDao.save(id, person);
-        //Person person_old = personDao.show(id);
-        //model.addAttribute("person_old", person_old);
-        //System.out.println(person);
-        //return "admin/info_person1";
-        //return "redirect:admin/info_person1";
-        //person.setEnabled(true);
-        //personDao.save(person);
-        return "redirect:/admin/persons";
+        return "redirect:/admin/persons/persons";
     }
 
 
     //Форма подсчета количества восхождений на каждую гору
-    @PostMapping("/person/person_count_assention_on_mountains/")
-    public String person_count_ascention_on_mountains(@RequestParam("id") int id, Model model)
+    @PostMapping("/person/person_count_ascension_on_mountains/")
+    public String person_count_ascension_on_mountains(@RequestParam("id") int id, Model model)
     {
         System.out.println("открыта функция спец.запроса на подсчет гор пользователем");
         PersonMntCount pmc = rqsDao.personMntCount(id);
@@ -140,9 +123,15 @@ public class AdminController
         return "admin/person_mountain_count";
     }
 
-
-
-
+    //Форма отображающая все восхождения пользователя, отсортированные по дате
+    @PostMapping("/person/person_ascensions/")
+    public String person_ascensions(@RequestParam("id") int id, Model model)
+    {
+        System.out.println("открыта функция спец.запроса на отображение восхождений пользователя");
+        PersonAscensions personAscensions = rqsDao.personAscensions(id);
+        model.addAttribute("personAscensions", personAscensions);
+        return "admin/person_ascensions";
+    }
 
     //ГОРЫ ГОРЫ ГОРЫ
 
@@ -153,21 +142,21 @@ public class AdminController
     {
         List<Mountain> mountains_list = mountainDao.index();
         model.addAttribute("mountains_list", mountains_list);
-        return "admin/mountains";
+        return "admin/mountains/mountains";
     }
 
     //Форма добавления горы
     @GetMapping("/mountains/new")
     public String add_mountain(@ModelAttribute("mountain") Mountain mountain)
     {
-        return "admin/add_mountain";
+        return "admin/mountains/mountain_add";
     }
 
     //POST запрос на сохранение горы
     @PostMapping("/mountains/creating")
     public String mountain_create(@ModelAttribute("mountain") Mountain mountain) {
         mountainDao.save(mountain);
-        return "redirect:/admin/";
+        return "redirect:/admin/mountains/mountains";
     }
 
     //Форма выбора горы
@@ -177,7 +166,7 @@ public class AdminController
     {
         List<Mountain> mountains_list = mountainDao.index();
         model.addAttribute("mountains_list", mountains_list);
-        return "admin/info_mountain1";
+        return "admin/mountains/mountain_info1";
     }
 
     //Форма отображения информации о горной вершине
@@ -186,7 +175,7 @@ public class AdminController
     {
         Mountain mountain = mountainDao.show(id);
         model.addAttribute("mountain", mountain);
-        return "admin/info_mountain2";
+        return "admin/mountains/mountain_info2";
     }
 
     //Форма изменения информации о горной вершине
@@ -195,7 +184,7 @@ public class AdminController
     {
         Mountain mountain_old = mountainDao.show(id);
         model.addAttribute("mountain_old", mountain_old);
-        return "admin/mountain_change";
+        return "admin/mountains/mountain_change";
     }
 
     //POST запрос для внесения изменения в базу данных о горной вершины
@@ -204,13 +193,108 @@ public class AdminController
     {
         //сохранение изменений, принятых с формы.
         mountainDao.save(id, mountain);
-        return "redirect:/admin/mountains";
+        return "redirect:/admin/mountains/mountains";
     }
 
 
+    //ВОСХОЖДЕНИЯ ВОСХОЖДЕНИЯ ВОСХОЖДЕНИЯ
+
+    //форма отображающая все восхождения
+    @GetMapping("/ascensions")
+    public String show_ascensions(@RequestParam(value = "from", required = false, defaultValue = "") String from, @RequestParam(value = "to", required = false, defaultValue = "") String to, Model model)
+    {
+        List<Ascension> ascensions_list;
+        if (from.equals("") || to.equals(""))
+            ascensions_list = ascensionDao.index();
+        else
+            ascensions_list = ascensionDao.index(from, to);
+        model.addAttribute("ascensions_list", ascensions_list);
+        model.addAttribute("from", from);
+        model.addAttribute("to", to);
+        return "admin/ascensions/ascensions";
+    }
+
+    //Форма выбора восхождения
+    @GetMapping("/ascension_info")
+    //Форма выбора восхождения
+    public String ascension_info1(Model model)
+    {
+        List<Ascension> ascensions_list = ascensionDao.index();
+        model.addAttribute("ascensions_list", ascensions_list);
+        return "admin/ascensions/ascension_info1";
+    }
+
+    //Форма отображения информации о восхождении
+    @PostMapping("/ascension")
+    public String ascension_info2(@RequestParam("id") int id, Model model)
+    {
+        //Ascen = mountainDao.show(id);
+        //model.addAttribute("mountain", mountain);
+        return "admin/ascensions/info_ascension2";
+    }
+
+    //СПОНСОРЫ СПОНСОРЫ СПОНСОРЫ
+
+    //форма отображающая все горные вершины
+    @GetMapping("/sponsors")
+
+    public String show_sponsors(Model model)
+    {
+        List<Sponsor> sponsors_list = sponsorDao.index();
+        model.addAttribute("sponsors_list", sponsors_list);
+        return "admin/sponsors/sponsors";
+    }
+
+    //Форма добавления спонсора
+    @GetMapping("/sponsors/new")
+    public String sponsor_add(@ModelAttribute("sponsor") Sponsor sponsor)
+    {
+        return "admin/sponsors/sponsor_add";
+    }
+
+    //POST запрос на сохранение спонсора
+    @PostMapping("/sponsors/creating")
+    public String sponsor_create(@ModelAttribute("sponsor") Sponsor sponsor) {
+        sponsorDao.save(sponsor);
+        return "redirect:/admin/sponsors";
+    }
+
+    //Форма выбора спонсора
+    @GetMapping("/sponsor_info")
+    public String sponsor_info1(Model model)
+    {
+        List<Sponsor> sponsors_list = sponsorDao.index();
+        model.addAttribute("sponsors_list", sponsors_list);
+        return "admin/sponsors/sponsor_info1";
+    }
+
+    //Форма отображения информации о спонсоре
+    @PostMapping("/sponsor")
+    public String sponsor_info2(@RequestParam("id") int id, Model model)
+    {
+        Sponsor sponsor = sponsorDao.show(id);
+        model.addAttribute("sponsor", sponsor);
+        return "admin/sponsors/sponsor_info2";
+    }
 
 
+    //Форма изменения информации о спонсоре
+    @PostMapping("/sponsor_change")
+    public String sponsor_change(@RequestParam("id") int id, Model model, @ModelAttribute("sponsor") Sponsor sponsor)
+    {
+        Sponsor sponsor_old = sponsorDao.show(id);
+        model.addAttribute("sponsor_old", sponsor_old);
+        return "admin/sponsors/sponsor_change";
+    }
 
+    //POST запрос для внесения изменения в базу данных о спонсоре
+    @PostMapping("/sponsor/changing")
+    public String sponsor_changing(@RequestParam("id") int id, @ModelAttribute("mountain") Sponsor sponsor)
+    {
+        //сохранение изменений, принятых с формы.
+        sponsorDao.save(id, sponsor);
+        return "redirect:/admin/sponsors";
+    }
 
 
     @GetMapping("/test_page")

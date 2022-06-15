@@ -1,6 +1,6 @@
 package bmstu.chronicles.models;
 
-public class Ascention
+public class Ascension
 {
     private int id;
     private String name;
@@ -15,12 +15,12 @@ public class Ascention
 
     private String status;
 
-    public Ascention()
+    public Ascension()
     {
 
     }
 
-    public Ascention(int id, String name, String date, int mountain_id, int leader_id, String type_of_ascent, String status)
+    public Ascension(int id, String name, String date, int mountain_id, int leader_id, String type_of_ascent, String status)
     {
         this.id = id;
         this.name = name;

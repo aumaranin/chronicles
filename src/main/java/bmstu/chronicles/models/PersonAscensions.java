@@ -2,9 +2,9 @@ package bmstu.chronicles.models;
 
 import java.util.List;
 
-public class PersonAscentions
+public class PersonAscensions
 {
     public Person person;
     public List<Mountain> mountain_list;
-    //список восхождений
+    public List<Ascension> ascensions_list;
 }
