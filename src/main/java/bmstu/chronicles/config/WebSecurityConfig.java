@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -18,6 +19,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     DataSource dataSource;
+
+
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    @Autowired
+    public WebSecurityConfig(AuthenticationSuccessHandler authenticationSuccessHandler) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+    }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
@@ -37,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/leader/**").hasAnyRole("ADMIN", "LEADER")
                 .antMatchers("/climber/**").hasAnyRole("ADMIN", "LEADER", "CLIMBER")
                 .antMatchers("/").permitAll()
-                .and().formLogin();
+                .and().formLogin().loginPage("/login").successHandler(authenticationSuccessHandler);
     }
 
     @Bean

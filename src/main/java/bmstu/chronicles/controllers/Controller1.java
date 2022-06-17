@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class Controller1
 {
+    /*
         @GetMapping("/")
         public String greeting(HttpServletRequest request, Model model) {
 
@@ -17,13 +18,14 @@ public class Controller1
             //model.addAttribute("name", name);
             return "menu";
         }
-/*
+*/
+
     @GetMapping("/login")
     public String login(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
-        return "login2";
+        return "login";
     }
-*/
+/*
 
 
     @GetMapping("/main")

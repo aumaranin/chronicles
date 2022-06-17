@@ -1,44 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
-
-    <title>Signin Template for Bootstrap</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
-
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+<head xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+  <meta charset="UTF-8">
+  <title>Хроники восхождения альпинистского клуба - Авторизация</title>
+  <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/4.1/examples/sign-in/signin.css" rel="stylesheet">
+  <link href="./my_style.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://sport-marafon.ru/upload/iblock/814/1948-001.jpg');
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+    #grey_bar {
+      background-color: rgba(100, 150, 255, 0.6);
+      position: absolute;
+      left: 50%;
+    }
+    #lable1 {
+      font-weight: bold;
+    }
+  </style>
 </head>
-
 <body class="text-center">
-<form class="form-signin">
-    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-</form>
-</body>
 
+  <div id="grey_bar">
+  <form class="form-signin" th:action="@{/login}" method="post">
+    <!--<img class="mb-4" src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
+    <img src="https://upload.wikimedia.org/wikipedia/ru/thumb/b/bd/%D0%93%D0%B5%D1%80%D0%B1_%D0%9C%D0%93%D0%A2%D0%A3_%D0%B8%D0%BC%D0%B5%D0%BD%D0%B8_%D0%9D._%D0%AD._%D0%91%D0%B0%D1%83%D0%BC%D0%B0%D0%BD%D0%B0.svg/800px-%D0%93%D0%B5%D1%80%D0%B1_%D0%9C%D0%93%D0%A2%D0%A3_%D0%B8%D0%BC%D0%B5%D0%BD%D0%B8_%D0%9D._%D0%AD._%D0%91%D0%B0%D1%83%D0%BC%D0%B0%D0%BD%D0%B0.svg.png" alt="" width="146" height="166">
+    <h1 class="h3 mb-3 font-weight-normal" id="lable1">Авторизация</h1>
+    <div th:if="${param.error}" style="font-weight:bold;">
+      Неверные имя пользователя<br> или пароль
+    </div>
+    <div th:if="${param.logout}" style="font-weight:bold;">
+      Вы вышли из системы
+    </div>
+    <label for="inputLogin" class="sr-only">Имя пользователя</label>
+    <input type="login" id="inputLogin" class="form-control" placeholder="Логин" name="username" required autofocus>
+    <label for="inputPassword" class="sr-only">Пароль</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" name="password" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Вход</button>
+  </form>
+  </div>
+</body>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</html>
-
 </html>
