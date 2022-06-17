@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="climber/home_climber :: head_climber"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="climber/home_climber :: header_climber"></header>
+        <nav th:replace="climber/home_climber :: menu-climber"></nav>
+
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Количество восхождений на горные вершины, совершенные альпинистом</h2>
+                <br><h2 style="font-weight:bold;" th:text="${pmc.person.last_name + ' '  + pmc.person.first_name + ' '
+                                        + pmc.person.second_name + '  (' + pmc.person.date_of_birth + ')'}"></h2>
+                <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                                <th scope="col">Навание горной вершины</th>
+                                <th scope="col">Высота</th>
+                                <th scope="col">Количество восхождений</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="index : ${#numbers.sequence(0, #lists.size(pmc.mountain_list)-1 , 1)}">
+                                <tr>
+                                        <td th:text="${pmc.mountain_list.get(index).name}"></td>
+                                        <td th:text="${pmc.mountain_list.get(index).height}"></td>
+                                        <td th:text="${pmc.count_list.get(index)}"></td>
+                                </tr>
+                        </th:block>
+                        </tbody>
+                </table>
+        </div>
+</div>
+</body>
+</html>

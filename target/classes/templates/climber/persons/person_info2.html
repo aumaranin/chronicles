@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="climber/home_climber :: head_climber"></head>
+<body>
+<div class="container mt-4">
+    <header th:replace="climber/home_climber :: header_climber"></header>
+    <nav th:replace="climber/home_climber :: menu-climber"></nav>
+    <div class="container mt-4">
+        <br><h2 style="font-weight:bold;">Информация о пользователе</h2><br>
+        <form th:method="POST" th:action="@{/climber/}" th:object="${person}">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Фамилия</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-2 col-form-label" th:text="${person.last_name}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Имя</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-2 col-form-label" th:text="${person.first_name}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Отчество</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-2 col-form-label" th:text="${person.second_name}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Дата рождения</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-2 col-form-label" th:text="${person.date_of_birth}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Роль</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-2 col-form-label" th:text="${person.getRoleRus()}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Пол</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-2 col-form-label" th:text="${person.getGender()}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Спортивный разряд</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-2 col-form-label" th:text="${person.getRank()}"></label>
+                </div>
+            </div>
+        </form><br>
+
+        <form th:method="POST" th:action="@{/climber/person/person_count_ascension_on_mountains/}" th:object="${person}">
+            <input type="hidden" name="id" th:value="${person.person_id}">
+            <button type="submit" class="btn btn-primary">Подсчитать количество восхождений</button>
+        </form><br>
+
+        <form th:method="POST" th:action="@{/climber/person/person_ascensions/}" th:object="${person}">
+            <input type="hidden" name="id" th:value="${person.person_id}">
+            <button type="submit" class="btn btn-primary">Отобразить все восхождения альпиниста</button>
+        </form><br>
+
+    </div>
+
+
+
+</div>
+</body>
+</html>

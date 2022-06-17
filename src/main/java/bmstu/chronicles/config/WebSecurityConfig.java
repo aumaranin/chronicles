@@ -20,13 +20,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
-
     private AuthenticationSuccessHandler authenticationSuccessHandler;
     @Autowired
-    public WebSecurityConfig(AuthenticationSuccessHandler authenticationSuccessHandler) {
+    public WebSecurityConfig(AuthenticationSuccessHandler authenticationSuccessHandler)
+    {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
@@ -46,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/leader/**").hasAnyRole("ADMIN", "LEADER")
                 .antMatchers("/climber/**").hasAnyRole("ADMIN", "LEADER", "CLIMBER")
                 .antMatchers("/").permitAll()
+                //.antMatchers("/guest/**").permitAll()
                 .and().formLogin().loginPage("/login").successHandler(authenticationSuccessHandler);
     }
 

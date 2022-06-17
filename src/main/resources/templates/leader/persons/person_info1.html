@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="leader/home_leader :: head_leader"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="leader/home_leader :: header_leader"></header>
+        <nav th:replace="leader/home_leader :: menu-leader"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Выбор альпиниста</h2><br>
+                <form th:action="@{/leader/person}" method="post">
+                        <select class="form-control" name="id">
+                                <th:block th:each="person : ${persons}">
+                                        <option th:text="${person.name_age()}" th:value="${person.person_id}"></option>
+                                </th:block>
+                        </select><br>
+                        <button type="submit" class="btn btn-primary">Отобразить информацию</button>
+                </form>
+        </div>
+</div>
+</body>
+</html>

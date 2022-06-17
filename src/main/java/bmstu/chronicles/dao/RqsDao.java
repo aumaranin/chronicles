@@ -91,7 +91,7 @@ public class RqsDao
         try
         {
             PreparedStatement prst = connection.prepareStatement(
-                    "SELECT ascension.id AS asc_id, ascension.name, ascension.date, mountains.id AS mnt_id, mountains.name mountains.height FROM mountains " +
+                    "SELECT ascension.id AS asc_id, ascension.name AS ascension_name, ascension.date, mountains.id AS mnt_id, mountains.name AS mountain_name, mountains.height FROM mountains " +
                             "JOIN ascension ON mountains.id = ascension.mountain_id " +
                             "JOIN ascension_member ON ascension.id = ascension_member.ascension_id " +
                             "JOIN person ON ascension_member.person_id = person.person_id " +
@@ -118,6 +118,35 @@ public class RqsDao
         return personAscensions;
     }
 
+    //Метод получающий для каждой горы восхождения, отсортированные по дате
+    public List<MountAsc> show_mount_asc()
+    {
+        List<MountAsc> mount_asc_list = new ArrayList<>();
+        try
+        {
+            PreparedStatement prst = connection.prepareStatement(
+                    "SELECT mountains.name AS mountain_name, ascension.name AS ascension_name, ascension.date FROM mountains " +
+                            "JOIN ascension ON mountains.id = ascension.mountain_id " +
+                            "WHERE ascension.status = 'Завершено' " +
+                            "GROUP BY mountains.name, ascension.name, ascension.date " +
+                            "ORDER BY mountains.name, ascension.date;"
+            );
+            ResultSet resultSet = prst.executeQuery();
+            while(resultSet.next())
+            {
+                MountAsc mountAsc = new MountAsc();
+                mountAsc.setMountain_name(resultSet.getString("mountain_name"));
+                mountAsc.setAscension_name(resultSet.getString("ascension_name"));
+                mountAsc.setAscension_date(resultSet.getString("date"));
+                mount_asc_list.add(mountAsc);
+            }
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return mount_asc_list;
+    }
 
 }
 

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="leader/home_leader :: head_leader"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="leader/home_leader :: header_leader"></header>
+        <nav th:replace="leader/home_leader :: menu-leader"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Выбор восхождения</h2><br>
+                <form th:action="@{/leader/ascensions/ending}" method="post">
+                        <select class="form-control" name="asc_id">
+                                <th:block th:each="ascension : ${ascensions_list}">
+                                        <option th:text="${ascension.name}" th:value="${ascension.id}"></option>
+                                </th:block>
+                        </select><br>
+                        <button type="submit" class="btn btn-primary">Завершить восхождение</button>
+                </form>
+        </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="climber/home_climber :: head_climber"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="climber/home_climber :: header_climber"></header>
+        <nav th:replace="climber/home_climber :: menu-climber"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Выбор альпиниста</h2><br>
+                <form th:action="@{/climber/person}" method="post">
+                        <select class="form-control" name="id">
+                                <th:block th:each="person : ${persons}">
+                                        <option th:text="${person.name_age()}" th:value="${person.person_id}"></option>
+                                </th:block>
+                        </select><br>
+                        <button type="submit" class="btn btn-primary">Отобразить информацию</button>
+                </form>
+        </div>
+</div>
+</body>
+</html>

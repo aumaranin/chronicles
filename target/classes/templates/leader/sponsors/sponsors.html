@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="leader/home_leader :: head_leader"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="leader/home_leader :: header_leader"></header>
+        <nav th:replace="leader/home_leader :: menu-leader"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Список всех спонсоров</h2><br>
+                <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                                <!--<th scope="col">id</th>-->
+                                <th scope="col">Название</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="sponsor : ${sponsors_list}">
+                                <tr>
+                                        <!--<th scope="row" th:text="${sponsor.id}"></th>
+                                        <td th:text="${sponsor.name}"></td>-->
+                                        <th scope="row" th:text="${sponsor.name}"></th>
+                                </tr>
+                        </th:block>
+                        </tbody>
+                </table>
+        </div>
+</div>
+</body>
+</html>

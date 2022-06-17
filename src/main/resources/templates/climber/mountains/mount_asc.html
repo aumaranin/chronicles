@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="climber/home_climber :: head_climber"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="climber/home_climber :: header_climber"></header>
+        <nav th:replace="climber/home_climber :: menu-climber"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Список восхождений для каждой горы, отсортированный по дате</h2>
+                <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                                <!--<th scope="col">id</th>-->
+                                <th scope="col">Название горы</th>
+                                <th scope="col">Название восхождения</th>
+                                <th scope="col">Дата</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="mount_asc : ${mount_asc_list}">
+                                <tr>
+                                        <th scope="row" th:text="${mount_asc.getMountain_name()}"></th>
+                                        <td th:text="${mount_asc.getAscension_name()}"></td>
+                                        <td th:text="${mount_asc.getAscension_date()}"></td>
+                                </tr>
+                        </th:block>
+                        </tbody>
+                </table>
+        </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="leader/home_leader :: head_leader"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="leader/home_leader :: header_leader"></header>
+        <nav th:replace="leader/home_leader :: menu-leader"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Запись альпиниста на восхождение</h2><br>
+
+                <form th:action="@{/leader/persons/singing}" method="post">
+                        <div class="form-group row">
+                                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Восхождение</label>
+                                <div class="col-sm-10">
+                                        <select class="form-control" name="asc_id">
+                                                <th:block th:each="ascension : ${ascensions_list}">
+                                                        <option th:text="${ascension.name}" th:value="${ascension.id}"></option>
+                                                </th:block>
+                                        </select><br>
+                                </div>
+                        </div>
+                        <div class="form-group row">
+                                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Альпинист</label>
+                                <div class="col-sm-10">
+                                        <select class="form-control" name="person_id">
+                                                <option th:text="${user.name_age()}" th:value="${user.getPerson_id()}"></option>
+                                        </select><br>
+                                </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Записатьcя</button>
+                </form>
+
+        </div>
+</div>
+</body>
+</html>

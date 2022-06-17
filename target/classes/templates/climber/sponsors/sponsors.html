@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="climber/home_climber :: head_climber"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="climber/home_climber :: header_climber"></header>
+        <nav th:replace="climber/home_climber :: menu-climber"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Список всех спонсоров</h2><br>
+                <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                                <!--<th scope="col">id</th>-->
+                                <th scope="col">Название</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="sponsor : ${sponsors_list}">
+                                <tr>
+                                        <!--<th scope="row" th:text="${sponsor.id}"></th>
+                                        <td th:text="${sponsor.name}"></td>-->
+                                        <th scope="row" th:text="${sponsor.name}"></th>
+                                </tr>
+                        </th:block>
+                        </tbody>
+                </table>
+        </div>
+</div>
+</body>
+</html>

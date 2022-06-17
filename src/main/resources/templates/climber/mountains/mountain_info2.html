@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="climber/home_climber :: head_climber"></head>
+<body>
+<div class="container mt-4">
+    <header th:replace="climber/home_climber :: header_climber"></header>
+    <nav th:replace="climber/home_climber :: menu-climber"></nav>
+    <div class="container mt-4">
+        <br><h2 style="font-weight:bold;">Информация о горной вершине</h2><br>
+        <form th:method="POST" th:action="@{/climber/}" th:object="${mountain}">
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Название</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-10 col-form-label" th:text="${mountain.name}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Страна</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-10 col-form-label" th:text="${mountain.country}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Высота</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-10 col-form-label" th:text="${mountain.height}"></label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="font-weight: bold;">Информация</label>
+                <div class="col-sm-10">
+                    <label class="col-sm-10 col-form-label" th:text="${mountain.information}"></label>
+                </div>
+            </div>
+        </form><br>
+
+        <form th:method="GET" th:action="@{/climber/mountains/mountain_show_asc_by_date/}" th:object="${mountain}">
+            <input type="hidden" name="mountain_id" th:value="${mountain.getId()}">
+            <input type="hidden" name="mountain_name" th:value="${mountain.getName()}">
+            <button type="submit" class="btn btn-primary">Показать список восхождений в хронологическом порядке</button>
+        </form><br>
+
+    </div>
+
+
+
+</div>
+</body>
+</html>

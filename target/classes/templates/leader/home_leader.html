@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head_leader">
+    <meta charset="UTF-8">
+    <title>Хроники восхождения альпийского клуба</title>
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.1/examples/blog/blog.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <header class="blog-header py-3" th:fragment="header_leader">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+            </div>
+            <div class="col-4 text-center">
+                <a class="blog-header-logo text-dark" href="/leader/">Хроники восхождений альпинистского клуба</a>
+            </div>
+            <div class="col-1">
+            </div>
+            <div class="col-1">
+                Здравствуйте.<br> Роль: Инструктор
+            </div>
+            <div class="col-1 d-flex justify-content-end align-items-center">
+
+                <form th:action="@{/logout}" method="post">
+                    <input class="btn btn-sm btn-outline-secondary" type="submit" value="Выход"/>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="menu-leader">
+
+        <!--<a class="navbar-brand" href="#">Navbar</a>-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Альпинисты
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/leader/persons">Отобразить список альпинистов</a>
+                        <a class="dropdown-item" href="/leader/person_info">Информация об альпинисте</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/leader/sign_person">Записать альпиниста на восхождение</a>
+                        <a class="dropdown-item" href="/leader/sign">Записаться на восхождение</a>
+
+
+                    </div>
+                </li>
+                <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Горы
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/leader/mountains">Отобразить все горы</a>
+                        <a class="dropdown-item" href="/leader/mountain_info">Информация об горной вершине</a>
+                        <a class="dropdown-item" href="/leader/mountains/asc_by_members">Отобразить горы, на которые совершались восхождения членами клуба</a>
+                        <a class="dropdown-item" href="/leader/mountains/mount_per_count">Подсчитать, сколько альпинистов клуба было на каждой горе</a>
+                        <a class="dropdown-item" href="/leader/mountains/mount_asc">Для каждой горы показать все восхождения в хронологическом порядке</a>
+                    </div>
+                </li>
+                <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Восхождения (группы)
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/leader/ascensions">Отобразить все восхождения</a>
+                        <a class="dropdown-item" href="/leader/ascension_info">Информация о восхождении</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/leader/ascensions/new">Назначить восхождение</a>
+                        <a class="dropdown-item" href="/leader/ascensions/complete">Завершить восхождение</a>
+                        <a class="dropdown-item" href="/leader/ascensions/cancel">Отменить восхождение</a>
+                        <a class="dropdown-item" href="/leader/ascensions/sponsor_add">Добавить спонсора к восхождению</a>
+
+                    </div>
+                </li>
+                <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Спонсоры
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/leader/sponsors">Отобразить всех спонсоров</a>
+                        <a class="dropdown-item" href="/leader/sponsor_info">Информация о спонсоре</a>
+                    </div>
+                </li>
+                <li>
+                    <a class="nav-link" href="/leader/about">О системе</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

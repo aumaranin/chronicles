@@ -19,11 +19,11 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController
 {
+    //Добавление компонентов, хранящих функции работы с базой данных
     private final PersonDao personDao;
     private final MountainDao mountainDao;
     private final AscensionDao ascensionDao;
     private final SponsorDao sponsorDao;
-
     private final AscensionSponsorDao ascensionSponsorDao;
     private final RqsDao rqsDao;
 
@@ -37,6 +37,7 @@ public class AdminController
         this.rqsDao = rqsDao;
     }
 
+    //Метод вывода главной страницы
     @GetMapping("/")
     public String home_admin(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model)
     {
@@ -44,6 +45,7 @@ public class AdminController
         return "admin/home_admin";
     }
 
+    //Метод вывода главной страницы
     @GetMapping("/about")
     //О СИСТЕМЕ
     public String about()
@@ -58,6 +60,7 @@ public class AdminController
         return "admin/persons/person_add";
     }
 
+    //POST запрос на добавление нового пользователя с записью в БД
     @PostMapping("person/creating")
     public String create(@ModelAttribute("person") Person person) {
         person.setEnabled(true);
@@ -65,8 +68,8 @@ public class AdminController
         return "redirect:/admin/persons";
     }
 
+    //Запрос: ОТОБРАЗИТЬ ВСЕХ ПОЛЬЗОВАТЕЛЕЙ, совершавших восхождение в промежутке дат
     @GetMapping("/persons")
-    //ОТОБРАЗИТЬ ВСЕХ ПОЛЬЗОВАТЕЛЕЙ, совершавших восхождение в промежутке дат
     public String show_all(@RequestParam(value = "from", required = false, defaultValue = "") String from, @RequestParam(value = "to", required = false, defaultValue = "") String to, Model model)
     {
         List<Person> list;
@@ -80,8 +83,8 @@ public class AdminController
         return "admin/persons/persons";
     }
 
-    @GetMapping("/person_info")
     //Форма выбора пользователя
+    @GetMapping("/person_info")
     public String person_info1(Model model)
     {
         List<Person> list = personDao.index("last_name");
@@ -89,8 +92,8 @@ public class AdminController
         return "admin/persons/person_info1";
     }
 
-    @PostMapping("/person")
     //Форма отображения информации о пользователе
+    @PostMapping("/person")
     public String person_info2(@RequestParam("id") int id, Model model)
     {
         Person person = personDao.show(id);
@@ -98,6 +101,7 @@ public class AdminController
         return "admin/persons/person_info2";
     }
 
+    //Форма изменение данных пользователя
     @PostMapping("/person_change")
     public String person_change(@RequestParam("id") int id, Model model, @ModelAttribute("person") Person person)
     {
@@ -106,6 +110,7 @@ public class AdminController
         return "admin/persons/person_change";
     }
 
+    //POST запрос на изменение данных пользователя с зиписью в БД
     @PostMapping("/person/changing")
     public String person_changing(@RequestParam("id") int id, @ModelAttribute("person") Person person)
     {
@@ -116,7 +121,6 @@ public class AdminController
         return "redirect:/admin/persons";
     }
 
-
     //Форма подсчета количества восхождений на каждую гору
     @PostMapping("/person/person_count_ascension_on_mountains/")
     public String person_count_ascension_on_mountains(@RequestParam("id") int id, Model model)
@@ -126,11 +130,10 @@ public class AdminController
         return "admin/persons/person_mountain_count";
     }
 
-    //Форма отображающая все восхождения пользователя, отсортированные по дате
+    //Форма отображающая все восхождения альпиниста, отсортированные по дате
     @PostMapping("/person/person_ascensions/")
     public String person_ascensions(@RequestParam("id") int id, Model model)
     {
-        System.out.println("открыта функция спец.запроса на отображение восхождений пользователя");
         PersonAscensions personAscensions = rqsDao.personAscensions(id);
         model.addAttribute("personAscensions", personAscensions);
         return "admin/persons/person_ascensions";
@@ -144,9 +147,10 @@ public class AdminController
         List<Ascension> ascensions_list = ascensionDao.show_active();
         model.addAttribute("member_list", member_list);
         model.addAttribute("ascensions_list", ascensions_list);
-        return "admin/persons/person_sign_by_admin";
+        return "admin/persons/person_sign_by_club";
     }
 
+    //Форма записи самого себя на активное восхождение
     @GetMapping("/sign")
     public String sign_person(HttpServletRequest request, Model model)
     {
@@ -158,7 +162,6 @@ public class AdminController
         return "admin/persons/person_sign_by_yourself";
     }
 
-
     //POST запрос на запись альпиниста на восхождение
     @PostMapping("persons/singing")
     public String person_singing(@RequestParam("asc_id") int asc_id, @RequestParam("person_id") int person_id, Model model) {
@@ -166,7 +169,7 @@ public class AdminController
         return "redirect:/admin/ascensions/";
     }
 
-    //ГОРЫ ГОРЫ ГОРЫ
+    //Горные вершины
 
     //форма отображающая все горные вершины
     @GetMapping("/mountains")
@@ -257,9 +260,16 @@ public class AdminController
         return "admin/mountains/mountain_show_asc_by_date";
     }
 
+    //Форма отображающая для каждой горы все восхождения в хронологическом порядке.
+    @GetMapping("/mountains/mount_asc")
+    public String mount_asc(Model model)
+    {
+        List<MountAsc> mount_asc_list = rqsDao.show_mount_asc();
+        model.addAttribute("mount_asc_list", mount_asc_list);
+        return "admin/mountains/mount_asc";
+    }
 
-
-    //ВОСХОЖДЕНИЯ ВОСХОЖДЕНИЯ ВОСХОЖДЕНИЯ
+    //Восхождения
 
     //форма отображающая все восхождения
     @GetMapping("/ascensions")
@@ -401,9 +411,9 @@ public class AdminController
         return "redirect:/admin/ascensions";
     }
 
-    //СПОНСОРЫ СПОНСОРЫ СПОНСОРЫ
+    //Спонсоры
 
-    //форма отображающая все горные вершины
+    //форма отображающая всех спонсоров
     @GetMapping("/sponsors")
 
     public String show_sponsors(Model model)
@@ -422,7 +432,8 @@ public class AdminController
 
     //POST запрос на сохранение спонсора
     @PostMapping("/sponsors/creating")
-    public String sponsor_create(@ModelAttribute("sponsor") Sponsor sponsor) {
+    public String sponsor_create(@ModelAttribute("sponsor") Sponsor sponsor)
+    {
         sponsorDao.save(sponsor);
         return "redirect:/admin/sponsors";
     }
@@ -444,7 +455,6 @@ public class AdminController
         model.addAttribute("sponsor", sponsor);
         return "admin/sponsors/sponsor_info2";
     }
-
 
     //Форма изменения информации о спонсоре
     @PostMapping("/sponsor_change")

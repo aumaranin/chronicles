@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="climber/home_climber :: head_climber"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="climber/home_climber :: header_climber"></header>
+        <nav th:replace="climber/home_climber :: menu-climber"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Список всех горных вершин</h2><br>
+                <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                                <!--<th scope="col">id</th>-->
+                                <th scope="col">Название</th>
+                                <th scope="col">Страна</th>
+                                <th scope="col">Высота</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="mountain : ${mountains_list}">
+                                <tr>
+                                        <!--<th scope="row" th:text="${mountain.id}"></th>
+                                        <td th:text="${mountain.name}"></td>-->
+                                        <th scope="row" th:text="${mountain.name}"></th>
+                                        <td th:text="${mountain.country}"></td>
+                                        <td th:text="${mountain.height}"></td>
+                                </tr>
+                        </th:block>
+                        </tbody>
+                </table>
+        </div>
+</div>
+</body>
+</html>

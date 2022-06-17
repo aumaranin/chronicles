@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="guest/home_guest :: head_guest"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="guest/home_guest :: header_guest"></header>
+        <nav th:replace="guest/home_guest :: menu-guest"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Выбор спонсора</h2><br>
+                <form th:action="@{/guest/sponsor/}" method="post">
+                        <select class="form-control" name="id">
+                                <th:block th:each="sponsor : ${sponsors_list}">
+                                        <option th:text="${sponsor.name}" th:value="${sponsor.id}"></option>
+                                </th:block>
+                        </select><br>
+                        <button type="submit" class="btn btn-primary">Отобразить информацию</button>
+                </form>
+        </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="guest/home_guest :: head_guest"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="guest/home_guest :: header_guest"></header>
+        <nav th:replace="guest/home_guest :: menu-guest"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Выбор даты восхождения</h2><br>
+                <form th:method="GET" th:action="@{/guest/persons}">
+                        <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Начало</label>
+                                <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="2000-01-01" name="from" th:value="*{from}">
+                                </div>
+                        </div>
+                        <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Конец</label>
+                                <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="2000-01-01" name="to" th:value="*{to}">
+                                </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Поиск</button>
+                </form>
+                <br><h2 style="font-weight:bold;">Список всех альпинистов</h2><br>
+                <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                                <!--<th scope="col">id</th>-->
+                                <th scope="col">Фамилия</th>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Отчество</th>
+                                <th scope="col">Роль</th>
+                                <th scope="col">Пол</th>
+                                <th scope="col">Спортивный разряд</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="person : ${persons}">
+                                <tr>
+                                        <!--<th scope="row" th:text="${person.person_id}"></th>
+                                        <td th:text="${person.last_name}"></td>-->
+                                        <th scope="row" th:text="${person.last_name}"></th>
+                                        <td th:text="${person.first_name}"></td>
+                                        <td th:text="${person.second_name}"></td>
+                                        <td th:text="${person.getRoleRus()}"></td>
+                                        <td th:text="${person.getGender()}"></td>
+                                        <td th:text="${person.getRank()}"></td>
+                                </tr>
+                        </th:block>
+                        </tbody>
+                </table>
+        </div>
+</div>
+</body>
+</html>

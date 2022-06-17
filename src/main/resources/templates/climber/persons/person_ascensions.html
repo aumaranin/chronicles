@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="climber/home_climber :: head_climber"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="climber/home_climber :: header_climber"></header>
+        <nav th:replace="climber/home_climber :: menu-climber"></nav>
+
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Восхождения на горные вершины, совершенные альпинистом</h2>
+                <br><h2 style="font-weight:bold;" th:text="${personAscensions.person.last_name + ' '  + personAscensions.person.first_name + ' '
+                                        + personAscensions.person.second_name + '  (' + personAscensions.person.date_of_birth + ')'}"></h2>
+
+                <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                                <th scope="col">Навание восхождения</th>
+                                <th scope="col">Дата</th>
+                                <th scope="col">Горная вершина</th>
+                                <th scope="col">Высота</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="index : ${#numbers.sequence(0, #lists.size(personAscensions.mountain_list)-1 , 1)}">
+                                <tr>
+                                        <td th:text="${personAscensions.ascensions_list.get(index).name}"></td>
+                                        <td th:text="${personAscensions.ascensions_list.get(index).date}"></td>
+                                        <td th:text="${personAscensions.mountain_list.get(index).name}"></td>
+                                        <td th:text="${personAscensions.mountain_list.get(index).height}"></td>
+                                </tr>
+                        </th:block>
+                        </tbody>
+                </table>
+
+
+        </div>
+</div>
+</body>
+</html>
