@@ -177,7 +177,7 @@ public class Person
         if (role.equals("ROLE_ADMIN"))
             res = "Администратор";
         if (role.equals("ROLE_LEADER"))
-            res = "Лидер";
+            res = "Инструктор";
         if (role.equals("ROLE_CLIMBER"))
             res = "Альпинист";
         return res;
@@ -204,6 +204,12 @@ public class Person
                 + "Телефон родственника: " + relative_phone + "\n"
                 + "Логин: " + login + "\n"
                 + "Пароль: " + password + "\n" + "Роль: " + role + "\n" + "enabled: " + enabled;
+        return res;
+    }
+
+    public String name_age()
+    {
+        String res = last_name + " " + first_name + " (" + date_of_birth + ")";
         return res;
     }
 }

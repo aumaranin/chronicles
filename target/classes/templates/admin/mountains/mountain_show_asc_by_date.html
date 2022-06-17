@@ -6,24 +6,25 @@
         <header th:replace="admin/home_admin :: header_admin"></header>
         <nav th:replace="admin/home_admin :: menu-admin"></nav>
         <div class="container">
-                <br><h2 style="font-weight:bold;">Список всех горных вершин</h2><br>
+                <br><h2 style="font-weight:bold;">Список всех восхождений на гору</h2>
+                <br><h3 style="font-weight:bold;" th:text="${mountain_name}"></h3><br>
                 <table class="table">
                         <thead class="thead-dark">
                         <tr>
                                 <!--<th scope="col">id</th>-->
-                                <th scope="col">Название</th>
-                                <th scope="col">Страна</th>
-                                <th scope="col">Высота</th>
+                                <th scope="col">Название восхождения</th>
+                                <th scope="col">Дата</th>
+                                <th scope="col">Тип восхождения</th>
                         </tr>
                         </thead>
                         <tbody>
-                                <th:block th:each="mountain : ${mountains_list}">
+                                <th:block th:each="ascension : ${ascensions_list}">
                                         <tr>
                                                 <!--<th scope="row" th:text="${mountain.id}"></th>
                                                 <td th:text="${mountain.name}"></td>-->
-                                                <th scope="row" th:text="${mountain.name}"></th>
-                                                <td th:text="${mountain.country}"></td>
-                                                <td th:text="${mountain.height}"></td>
+                                                <th scope="row" th:text="${ascension.getName()}"></th>
+                                                <td th:text="${ascension.getDate()}"></td>
+                                                <td th:text="${ascension.getType_of_ascent()}"></td>
                                         </tr>
                                 </th:block>
                         </tbody>

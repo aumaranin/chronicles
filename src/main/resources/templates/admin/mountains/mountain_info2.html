@@ -39,7 +39,14 @@
                 <form th:method="POST" th:action="@{/admin/mountain_change/}" th:object="${mountain}">
                     <input type="hidden" name="id" th:value="${mountain.id}">
                     <button type="submit" class="btn btn-primary">Изменить информацию о горной вершине</button>
-                </form>
+                </form><br>
+
+                <form th:method="GET" th:action="@{/admin/mountains/mountain_show_asc_by_date/}" th:object="${mountain}">
+                    <input type="hidden" name="mountain_id" th:value="${mountain.getId()}">
+                    <input type="hidden" name="mountain_name" th:value="${mountain.getName()}">
+                    <button type="submit" class="btn btn-primary">Показать список восхождений в хронологическом порядке</button>
+                </form><br>
+
             </div>
 
 

@@ -47,11 +47,11 @@ public class RqsDao
         try
         {
             PreparedStatement prst = connection.prepareStatement(
-                    "SELECT person.person_id, mountains.id, count(*) FROM mountains " +
+                    "SELECT person.person_id, mountains.id, mountains.name, mountains.height, count(*) FROM mountains " +
                             "JOIN ascension ON mountains.id = ascension.mountain_id " +
                             "JOIN ascension_member ON ascension.id = ascension_member.ascension_id " +
                             "JOIN person ON ascension_member.person_id = person.person_id " +
-                            "WHERE person.person_id = ? " +
+                            "WHERE person.person_id = ? AND ascension_member.status = 'Выполнено' " +
                             "GROUP BY mountains.id, person.last_name, person.first_name, person.person_id;"
             );
             prst.setInt(1, person_id);
@@ -91,11 +91,11 @@ public class RqsDao
         try
         {
             PreparedStatement prst = connection.prepareStatement(
-                    "SELECT ascension.id AS asc_id, ascension.name, ascension.date, mountains.id AS mnt_id, mountains.name FROM mountains " +
+                    "SELECT ascension.id AS asc_id, ascension.name, ascension.date, mountains.id AS mnt_id, mountains.name mountains.height FROM mountains " +
                             "JOIN ascension ON mountains.id = ascension.mountain_id " +
                             "JOIN ascension_member ON ascension.id = ascension_member.ascension_id " +
                             "JOIN person ON ascension_member.person_id = person.person_id " +
-                            "WHERE person.person_id = ? ORDER BY ascension.date;"
+                            "WHERE person.person_id = ? AND ascension_member.status = 'Выполнено' ORDER BY ascension.date;"
             );
             prst.setInt(1, person_id);
             ResultSet resultSet = prst.executeQuery();

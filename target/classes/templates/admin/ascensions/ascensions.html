@@ -29,7 +29,7 @@
                 <table class="table">
                         <thead class="thead-dark">
                         <tr>
-                                <th scope="col">id</th>
+                                <!--<th scope="col">id</th>-->
                                 <th scope="col">Название</th>
                                 <th scope="col">Дата</th>
                                 <th scope="col">Тип восхождения</th>
@@ -39,8 +39,9 @@
                         <tbody>
                                 <th:block th:each="ascension : ${ascensions_list}">
                                         <tr>
-                                                <th scope="row" th:text="${ascension.id}"></th>
-                                                <td th:text="${ascension.name}"></td>
+                                                <!--<th scope="row" th:text="${ascension.id}"></th>
+                                                <td th:text="${ascension.name}"></td>-->
+                                                <th scope="row" th:text="${ascension.name}"></th>
                                                 <td th:text="${ascension.date}"></td>
                                                 <td th:text="${ascension.type_of_ascent}"></td>
                                                 <td th:text="${ascension.status}"></td>
@@ -48,7 +49,6 @@
                                 </th:block>
                         </tbody>
                 </table>
-
         </div>
 </div>
 </body>

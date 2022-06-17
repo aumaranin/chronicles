@@ -6,20 +6,19 @@
         <header th:replace="admin/home_admin :: header_admin"></header>
         <nav th:replace="admin/home_admin :: menu-admin"></nav>
         <div class="container">
-                <br><h2 style="font-weight:bold;">Список всех спонсоров</h2><br>
+                <br><h2 style="font-weight:bold;">Количество альпинистов, посещавших каждую гору</h2><br>
                 <table class="table">
                         <thead class="thead-dark">
                         <tr>
-                                <!--<th scope="col">id</th>-->
-                                <th scope="col">Название</th>
+                                <th scope="col">Название горвной вершины</th>
+                                <th scope="col">Количество посетивших альпинистов</th>
                         </tr>
                         </thead>
                         <tbody>
-                                <th:block th:each="sponsor : ${sponsors_list}">
+                                <th:block th:each="mountCount : ${mountCount_list}">
                                         <tr>
-                                                <!--<th scope="row" th:text="${sponsor.id}"></th>
-                                                <td th:text="${sponsor.name}"></td>-->
-                                                <th scope="row" th:text="${sponsor.name}"></th>
+                                                <th scope="row" th:text="${mountCount.mountain_name}"></th>
+                                                <td th:text="${mountCount.count}"></td>
                                         </tr>
                                 </th:block>
                         </tbody>

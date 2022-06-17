@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="admin/home_admin :: head_admin"></head>
+    <body>
+        <div class="container mt-4">
+            <header th:replace="admin/home_admin :: header_admin"></header>
+            <nav th:replace="admin/home_admin :: menu-admin"></nav>
+
+            <br><h2 style="font-weight:bold;">Добавление восхождения</h2><br>
+            <form th:method="POST" th:action="@{/admin/ascensions/creating/}" th:object="${ascension}">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Название</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" th:field="${ascension.name}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Дата</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="2000-01-01" th:field="${ascension.date}">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Горная вершина</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" th:field="*{mountain_id}">
+                            <option th:each="mountain : ${mountains_list}" th:value="${mountain.id}" th:text="${mountain.name}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Главный инструктор группы</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" th:field="*{leader_id}">
+                            <option th:each="leader : ${leader_list}" th:value="${leader.person_id}" th:text="${leader.name_age()}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Тип восхождения</label>
+                    <div class="col-sm-10">
+
+                        <select class="form-control" th:field="*{type_of_ascent}">
+                            <option th:value="'Скальный альпинизм'" th:text="'Скальный альпинизм'"></option>
+                            <option th:value="'Скалолазание'" th:text="'Скалолазание'"></option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Спонсор</label>
+                    <div class="col-sm-10">
+
+                        <select class="form-control" name="sponsor_id" th:value="${sponsor_id}">
+                            <option th:each="sponsor : ${sponsors_list}" th:value="${sponsor.id}" th:text="${sponsor.name}"></option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Вклад спонсора</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="sponsor_deposit" th:value="${sponsor_deposit}">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Добавить восхождение</button>
+            </form>
+
+        </div>
+</body>
+</html>

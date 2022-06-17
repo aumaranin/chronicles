@@ -10,15 +10,16 @@
                 <table class="table">
                         <thead class="thead-dark">
                         <tr>
-                                <th scope="col">id</th>
+                                <!--<th scope="col">id</th>-->
                                 <th scope="col">Название</th>
                         </tr>
                         </thead>
                         <tbody>
                                 <th:block th:each="sponsor : ${sponsors_list}">
                                         <tr>
-                                                <th scope="row" th:text="${sponsor.id}"></th>
-                                                <td th:text="${sponsor.name}"></td>
+                                                <!--<th scope="row" th:text="${sponsor.id}"></th>
+                                                <td th:text="${sponsor.name}"></td>-->
+                                                <th scope="row" th:text="${sponsor.name}"></th>
                                         </tr>
                                 </th:block>
                         </tbody>

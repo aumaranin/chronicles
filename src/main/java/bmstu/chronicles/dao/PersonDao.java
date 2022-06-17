@@ -31,13 +31,19 @@ public class PersonDao
         }
     }
 
-    //Метод для поиска всех пользователей в базе данных, отсортированный по person_id
-    public List<Person> index() {
+    //Метод для поиска всех пользователей в базе данных, отсортированный по person_id или фамилии
+    public List<Person> index(String order) {
         List<Person> people = new ArrayList<>();
 
         try {
             Statement statement = connection.createStatement();
-            String SQL = "SELECT * FROM Person ORDER BY person_id";
+            String SQL;
+            if (order.equals("last_name"))
+                SQL = "SELECT * FROM Person ORDER BY last_name";
+            else
+            {
+                SQL = "SELECT * FROM Person ORDER BY person_id";
+            }
             ResultSet resultSet = statement.executeQuery(SQL);
 
             while(resultSet.next())
@@ -69,12 +75,12 @@ public class PersonDao
 
     //Метод для поиска пользователей в базе данных, совершавших восхождения между двумя датами from - to
     // отсортированный по person_id
-    public List<Person> index(String from, String to)
+    public List<Person> show_climbing_person(String order, String from, String to)
     {
         List<Person> people = new ArrayList<>();
         try
         {
-            String req1 = "SELECT DISTINCT person.person_id, person.first_name, person.second_name, "
+                String req1 = "SELECT DISTINCT person.person_id, person.first_name, person.second_name, "
                         + "person.last_name, person.date_of_birth, person.password, "
                         + "person.role, person.login, person.enabled, person.gender, "
                         + "person.phone, person.rank, person.relative_phone "
@@ -82,12 +88,27 @@ public class PersonDao
                         + "INNER JOIN ascension_member ON person.person_id = ascension_member.person_id "
                         + "INNER JOIN ascension ON ascension_member.ascension_id = ascension.id "
                         + "INNER JOIN mountains ON ascension.mountain_id = mountains.id "
-                        + "WHERE ascension.date > '" + from + "' AND ascension.date < '" + to + "' ORDER BY person.person_id;";
-                        //+ "WHERE ascension.date > ? AND ascension.date < ? ORDER BY person.person_id;";
+                        + "WHERE ascension.date > '" + from + "' AND ascension.date < '" + to
+                        + "' AND ascension_member.status='Выполнено' "
+                        + "ORDER BY person.person_id;";
+
+
+                if (order.equals("last_name"))
+                    req1 = "SELECT DISTINCT person.person_id, person.first_name, person.second_name, "
+                            + "person.last_name, person.date_of_birth, person.password, "
+                            + "person.role, person.login, person.enabled, person.gender, "
+                            + "person.phone, person.rank, person.relative_phone "
+                            + "FROM person "
+                            + "INNER JOIN ascension_member ON person.person_id = ascension_member.person_id "
+                            + "INNER JOIN ascension ON ascension_member.ascension_id = ascension.id "
+                            + "INNER JOIN mountains ON ascension.mountain_id = mountains.id "
+                            + "WHERE ascension.date > '" + from + "' AND ascension.date < '" + to
+                            + "' AND ascension_member.status='Выполнено' "
+                            + "ORDER BY person.last_name;";
+
 
             PreparedStatement prst1 = connection.prepareStatement(req1);
-            //prst1.setString(1, from.strip());
-            //prst1.setString(2, to.strip());
+
 
             ResultSet resultSet = prst1.executeQuery();
             while(resultSet.next())
@@ -221,5 +242,44 @@ public class PersonDao
             e.printStackTrace();
         }
     }
+
+
+    //Метод для поиска пользователей в базе данных, роль которых - Инструктор
+    // отсортированный по person_id
+    public List<Person> index_leader()
+    {
+        List<Person> people = new ArrayList<>();
+        try
+        {
+            String req1 = "SELECT * FROM person WHERE role = 'ROLE_LEADER' ORDER BY last_name;";
+            PreparedStatement prst1 = connection.prepareStatement(req1);
+
+            ResultSet resultSet = prst1.executeQuery();
+            while(resultSet.next())
+            {
+                Person person = new Person();
+
+                person.setPerson_id(resultSet.getInt("person_id"));
+                person.setFirst_name(resultSet.getString("first_name"));
+                person.setSecond_name(resultSet.getString("second_name"));
+                person.setLast_name(resultSet.getString("last_name"));
+                person.setDate_of_birth(resultSet.getString("date_of_birth"));
+                person.setPassword(resultSet.getString("password"));
+                person.setRole(resultSet.getString("role"));
+                person.setLogin(resultSet.getString("login"));
+                person.setEnabled(resultSet.getBoolean("enabled"));
+                person.setPhone(resultSet.getString("phone"));
+                person.setRelative_phone(resultSet.getString("relative_phone"));
+                person.setRank(resultSet.getString("rank"));
+                person.setGender(resultSet.getString("gender"));
+                people.add(person);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return people;
+    }
+
+
 
 }

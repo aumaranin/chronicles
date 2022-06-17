@@ -26,7 +26,7 @@
                 <table class="table">
                         <thead class="thead-dark">
                         <tr>
-                                <th scope="col">id</th>
+                                <!--<th scope="col">id</th>-->
                                 <th scope="col">Фамилия</th>
                                 <th scope="col">Имя</th>
                                 <th scope="col">Отчество</th>
@@ -44,8 +44,9 @@
                         <tbody>
                                 <th:block th:each="person : ${persons}">
                                         <tr>
-                                                <th scope="row" th:text="${person.person_id}"></th>
-                                                <td th:text="${person.last_name}"></td>
+                                                <!--<th scope="row" th:text="${person.person_id}"></th>
+                                                <td th:text="${person.last_name}"></td>-->
+                                                <th scope="row" th:text="${person.last_name}"></th>
                                                 <td th:text="${person.first_name}"></td>
                                                 <td th:text="${person.second_name}"></td>
                                                 <td th:text="${person.date_of_birth}"></td>

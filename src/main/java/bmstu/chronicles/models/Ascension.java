@@ -112,4 +112,12 @@ public class Ascension
     {
         this.status = status;
     }
+
+    public boolean isActive()
+    {
+        if (this.status.equals("Активно"))
+            return true;
+        else
+            return false;
+    }
 }
