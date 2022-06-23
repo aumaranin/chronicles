@@ -297,14 +297,32 @@ public class AscensionDao
         }
     }
 
-    //Метод для изменения статуса всех участников восхождения на "Выполнено"
-    public void ascension_members_end(int asc_id)
+    //Метод для изменения статуса всех участников восхождения на "Не выполнено"
+    public void ascension_members_end(int asc_id, String result)
     {
         try
         {
             PreparedStatement prst = connection.prepareStatement(
-                    "UPDATE ascension_member SET status='Выполнено' WHERE ascension_id=?");
-            prst.setInt(1, asc_id);
+                    "UPDATE ascension_member SET status=? WHERE ascension_id=?");
+            prst.setString(1, result);
+            prst.setInt(2, asc_id);
+            prst.executeUpdate();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    //Метод для изменения статуса участника восхождения по его ID на "Выполнено"
+    public void ascension_members_end(int asc_id, int member_id, String result)
+    {
+        try
+        {
+            PreparedStatement prst = connection.prepareStatement(
+                    "UPDATE ascension_member SET status=? WHERE ascension_id=? AND person_id=?");
+            prst.setString(1, "Выполнено");
+            prst.setInt(2, asc_id);
+            prst.setInt(3, member_id);
             prst.executeUpdate();
         } catch (SQLException e)
         {

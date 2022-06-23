@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="leader/home_leader :: head_leader"></head>
+<body>
+<div class="container mt-4">
+        <header th:replace="leader/home_leader :: header_leader"></header>
+        <nav th:replace="leader/home_leader :: menu-leader"></nav>
+        <div class="container">
+                <br><h2 style="font-weight:bold;">Выбор альпинистов, завершивших восхождение</h2><br>
+                <h2 style="font-weight:bold;" th:text="${asc_name}"></h2><br>
+                <form th:action="@{/leader/ascensions/ascension_ending}" method="post">
+                        <th:block th:each="index : ${#numbers.sequence(0, #lists.size(members_list)-1 , 1)}">
+                                <!--<input type="checkbox" name="results_list" th:field="${results_list.get(index)}" th:value="Выполнено" checked>-->
+                                <input type="checkbox" th:name="results_list" th:value="${index}" checked>
+                                <label th:text="${members_list.get(index).name_age()}"></label>
+                                <br>
+                        </th:block><br>
+                        <input type="hidden" name="asc_id" th:value="${asc_id}"></input>
+                        <input type="hidden" name="members_list" th:value="${members_list}"></input>
+
+                        <button type="submit" class="btn btn-primary">Завершить восхождение</button>
+
+                </form><br><br>
+                <div th:replace="index :: footer"></div>
+        </div>
+</div>
+</body>
+</html>

@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 //Аннотация контроллер дает классу дополниительные возможности в соответствии с шаблоном
@@ -358,13 +361,35 @@ public class AdminController
         return "admin/ascensions/ascension_complete";
     }
 
+    //Форма для завершения восхождения 2: простановка восхождений участникам
+    @GetMapping("/ascensions/complete_select_members")
+    public String ascension_complete_select_members(@RequestParam("asc_id") int asc_id, Model model)
+    {
+        List<Person> members_list = ascensionDao.getMembers(asc_id);
+        Ascension asc = ascensionDao.show(asc_id);
+
+        model.addAttribute("asc_id", asc_id);
+        model.addAttribute("asc_name", asc.getName());
+        model.addAttribute("members_list", members_list);
+        return "admin/ascensions/ascension_complete_select_members";
+    }
+
     //POST запрос на завершение восхождения
-    @PostMapping("/ascensions/ending")
-    public String ascension_ending(@RequestParam("asc_id") int asc_id) {
+    @PostMapping("/ascensions/ascension_ending")
+    public String ascension_ending(@RequestParam("asc_id") int asc_id,
+                                   @RequestParam("results_list") int[] results_list)
+    {
+        List<Person> members_list = ascensionDao.getMembers(asc_id);
         //запрос на статус восхождения - завершен
         ascensionDao.ascension_end(asc_id);
-        //запрос на завершение восхождения у всех участников
-        ascensionDao.ascension_members_end(asc_id);
+        //запрос на завершение восхождения у всех участников c статусом "Не выполнено"
+        ascensionDao.ascension_members_end(asc_id, "Не выполнено");
+        //запрос на завершение восхождения у участника по его ID на "Выполнено"
+        for (int index : results_list)
+        {
+            Person member = members_list.get(index);
+            ascensionDao.ascension_members_end(asc_id, member.getPerson_id(), "Выполнено");
+        }
         return "redirect:/admin/ascensions";
     }
 

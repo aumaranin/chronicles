@@ -7,7 +7,7 @@
         <nav th:replace="admin/home_admin :: menu-admin"></nav>
         <div class="container">
                 <br><h2 style="font-weight:bold;">Выбор восхождения</h2><br>
-                <form th:action="@{/admin/ascensions/ending}" method="post">
+                <form th:action="@{/admin/ascensions/complete_select_members}" method="get">
                         <select class="form-control" name="asc_id">
                                 <th:block th:each="ascension : ${ascensions_list}">
                                         <option th:text="${ascension.name}" th:value="${ascension.id}"></option>
