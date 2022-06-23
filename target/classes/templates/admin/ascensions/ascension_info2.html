@@ -77,7 +77,7 @@
 
                 </form><br>
 
-                <form th:method="POST" th:action="@{/admin/ascensions/ending}" th:if="${ascension.isActive()}">
+                <form th:method="get" th:action="@{/admin/ascensions/complete_select_members}" th:if="${ascension.isActive()}">
                     <input type="hidden" name="asc_id" th:value="${ascension.getId()}">
                     <button type="submit" class="btn btn-primary">Завершить восхождение</button>
                 </form><br>
