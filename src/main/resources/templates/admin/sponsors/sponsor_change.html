@@ -5,7 +5,7 @@
         <div class="container mt-4">
             <header th:replace="admin/home_admin :: header_admin"></header>
             <nav th:replace="admin/home_admin :: menu-admin"></nav>
-            <br><h2 style="font-weight:bold;">Изменение информации о горной вершине</h2><br>
+            <br><h2 style="font-weight:bold;">Изменение информации о спонсоре</h2><br>
             <form th:method="POST" th:action="@{/admin/sponsor/changing/}" th:object="${sponsor_old}">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Название</label>

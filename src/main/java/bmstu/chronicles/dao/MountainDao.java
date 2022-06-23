@@ -123,7 +123,7 @@ public class MountainDao
 
         try {
             Statement statement = connection.createStatement();
-            String SQL = "SELECT mountains.id, mountains.name, mountains.country, mountains.height, mountains.information FROM mountains " +
+            String SQL = "SELECT DISTINCT mountains.id, mountains.name, mountains.country, mountains.height, mountains.information FROM mountains " +
                     "JOIN ascension ON mountains.id = ascension.mountain_id WHERE ascension.status='Завершено';";
             ResultSet resultSet = statement.executeQuery(SQL);
 
